@@ -1,0 +1,52 @@
+#include <stdlib.h>
+#include <time.h>
+#include <stdio.h>
+#include <string.h>
+
+int randomnum(){
+    srand(time(NULL));
+    return rand() % 3;
+}
+int comp(char c1,char c2){
+    if(c1==c2)return 0;
+    else if(((c1=='R') && (c2=='P'))||((c1=='P') && (c2=='S'))||((c1=='S')&& (c2=='R')))return 2;
+    else return 1;
+}
+
+int main(){
+    char name[20];
+    char choice1,choice2,dict[]={'R','P','S','\0'};
+    int rounds,Score1=0,Score2=0,i=1;
+    printf("Enter your name:\t");
+    scanf("%s",name);
+    printf("Entered name is %s",name);
+    printf("\nEnter the number of rounds:\t");
+    scanf("%d",&rounds);
+    getchar();
+    while(i<=rounds){
+        printf("%s's Turn\n",name);
+        scanf("%c",&choice1);
+        getchar();
+        printf("Computer's turn\n");
+        choice2=dict[randomnum()];
+        printf("Computer chose: %c\n",choice2);
+        if(comp(choice1,choice2)==1){
+            Score1++;
+        }
+        else if (comp(choice1,choice2)==2)
+        {
+            Score2++;
+        }
+        printf("Current Score is: %s:%d and Computer:%d\n",name,Score1,Score2);
+        i++;   
+    }
+    if(Score1>Score2){
+        printf("Hurray! You Won %s\n",name);
+    }
+    else if(Score1<Score2){
+        printf("Better luck next time %s\nComputer won the game.",name);
+    }
+    else{
+        printf("Looks like its a Tie.");
+    }
+}
